@@ -1,173 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Message</title>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pacifico&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --pink: #ff85a2;
-            --dark-pink: #ff4d6d;
-            --bg: #fff0f3;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Be My Valentine 💌</title>
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--bg);
-            font-family: 'VT323', monospace;
-            overflow: hidden;
-        }
+<!-- Retro Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pacifico&display=swap" rel="stylesheet">
 
-        /* Loading Screen */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-        }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-        .pixel-heart {
-            width: 50px;
-            height: 50px;
-            background: var(--dark-pink);
-            position: relative;
-            animation: pulse 1s infinite;
-            box-shadow: 10px 10px 0 #ffb3c1;
-        }
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffd6e8, #e6d9ff);
+  font-family: 'Press Start 2P', cursive;
+}
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
+/* ===== PIXEL BACKGROUND ===== */
+.bg-item {
+  position: absolute;
+  opacity: 0.8;
+  animation: float 6s ease-in-out infinite;
+}
 
-        /* Main Card */
-        #card {
-            display: none;
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border: 6px solid #000;
-            box-shadow: 15px 15px 0 var(--pink);
-            max-width: 400px;
-            position: relative;
-        }
+.star {
+  width: 10px;
+  height: 10px;
+  background: gold;
+  transform: rotate(45deg);
+}
 
-        h1 {
-            font-family: 'Pacifico', cursive;
-            color: var(--dark-pink);
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-        }
+.cloud {
+  width: 80px;
+  height: 40px;
+  background: #fff;
+  border-radius: 50px;
+}
 
-        .pixel-decor {
-            font-size: 2rem;
-            margin: 10px;
-        }
+.strawberry {
+  width: 14px;
+  height: 14px;
+  background: #ff4d6d;
+  border-radius: 50%;
+}
 
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-            height: 50px;
-        }
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
 
-        button {
-            padding: 10px 25px;
-            font-family: 'VT323', monospace;
-            font-size: 1.5rem;
-            cursor: pointer;
-            border: 4px solid #000;
-            transition: transform 0.1s;
-        }
+/* ===== MAIN SCENE ===== */
+.scene {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 2;
+  position: relative;
+}
 
-        #yesBtn {
-            background: #70e000;
-            box-shadow: 4px 4px 0 #38b000;
-        }
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: #ff5fa2;
+  text-shadow: 0 4px 0 #fff;
+  animation: pop 1s ease;
+}
 
-        #noBtn {
-            background: #ff4d6d;
-            box-shadow: 4px 4px 0 #c9184a;
-            position: absolute;
-        }
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
 
-        /* Celebration State */
-        #celebration {
-            display: none;
-            text-align: center;
-        }
+/* ===== BUTTONS ===== */
+.buttons {
+  margin-top: 40px;
+  position: relative;
+}
 
-        img {
-            max-width: 100%;
-            border: 5px solid #000;
-        }
-    </style>
+button {
+  padding: 14px 24px;
+  font-size: 0.9rem;
+  border-radius: 14px;
+  border: 3px solid #ff5fa2;
+  background: white;
+  color: #ff5fa2;
+  box-shadow: 0 6px 0 #ffb3d9;
+  margin: 0 20px;
+  transition: 0.15s;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+#noBtn {
+  position: absolute;
+}
+
+.shake {
+  animation: shake 0.2s infinite;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+/* ===== SUCCESS SCREEN ===== */
+#success {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 214, 232, 0.95);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 10;
+}
+
+#success img {
+  width: 260px;
+}
+
+/* ===== CONFETTI ===== */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  top: -10px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+</style>
 </head>
+
 <body>
 
-    <div id="loader">
-        <div class="pixel-heart"></div>
-        <p>Loading Love...</p>
-    </div>
+<!-- Background Elements -->
+<script>
+for(let i=0;i<30;i++){
+  const el = document.createElement('div');
+  el.className = `bg-item ${['star','cloud','strawberry'][Math.floor(Math.random()*3)]}`;
+  el.style.left = Math.random()*100+'vw';
+  el.style.top = Math.random()*100+'vh';
+  el.style.animationDuration = 4+Math.random()*6+'s';
+  document.body.appendChild(el);
+}
+</script>
 
-    <div id="card">
-        <div class="pixel-decor">🌸 ✨ 🎀</div>
-        <h1>Will you be my Valentine?</h1>
-        <div class="btn-container">
-            <button id="yesBtn">YES</button>
-            <button id="noBtn">NO</button>
-        </div>
-    </div>
+<div class="scene">
+  <h1>Will you be my Valentine? 💘</h1>
 
-    <div id="celebration">
-        <h1>YAY! SEE YOU SOON! ❤️</h1>
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueGZ4bm9oZzR6eXN6eHpsbm80eXN6eHpsbm80eXN6eHpsbm8mZXA9djFfaW50ZXJuYWxfZ2lmX2J5X2lkJmN0PWc/jS7tkOa9ccf8qfXqW9/giphy.gif" alt="The Office Celebration">
-    </div>
+  <div class="buttons">
+    <button id="yesBtn">YES 💖</button>
+    <button id="noBtn">NO 😼</button>
+  </div>
+</div>
 
-    <script>
-        // Simulate Loading
-        setTimeout(() => {
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('card').style.display = 'block';
-            
-            // Set initial position for No button
-            const noBtn = document.getElementById('noBtn');
-            const container = document.querySelector('.btn-container');
-            noBtn.style.left = (container.offsetLeft + 150) + 'px';
-            noBtn.style.top = (container.offsetTop) + 'px';
-        }, 2000);
+<!-- SUCCESS -->
+<div id="success">
+  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Love">
+  <h2 style="color:#ff5fa2;font-family:Pacifico;margin-top:20px;">
+    YAYYYYY 💕
+  </h2>
+</div>
 
-        const noBtn = document.getElementById('noBtn');
-        const yesBtn = document.getElementById('yesBtn');
+<!-- Sounds -->
+<audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-retro-game-notification-212.mp3"></audio>
+<audio id="winSound" src="https://assets.mixkit.co/sfx/preview/mixkit-video-game-win-2016.mp3"></audio>
 
-        // Move No Button on Hover
-        noBtn.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
-        });
+<script>
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const success = document.getElementById('success');
+const clickSound = document.getElementById('clickSound');
+const winSound = document.getElementById('winSound');
 
-        // Click Yes
-        yesBtn.addEventListener('click', () => {
-            document.getElementById('card').style.display = 'none';
-            document.getElementById('celebration').style.display = 'block';
-            document.body.style.backgroundColor = "#ffccd5";
-        });
-    </script>
+let noCount = 0;
+const taunts = [
+  "missed me 😼",
+  "hehe nope",
+  "nice try",
+  "not today",
+  "almost 💀"
+];
+
+document.addEventListener('mousemove', (e) => {
+  const rect = noBtn.getBoundingClientRect();
+  const dist = Math.hypot(
+    e.clientX - (rect.left + rect.width/2),
+    e.clientY - (rect.top + rect.height/2)
+  );
+
+  if (dist < 100) {
+    noCount++;
+    noBtn.classList.add('shake');
+    noBtn.textContent = taunts[Math.floor(Math.random()*taunts.length)];
+
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHeight - 120);
+    noBtn.style.left = x+'px';
+    noBtn.style.top = y+'px';
+
+    // SECRET ENDING
+    if(noCount > 12){
+      noBtn.textContent = "OK FINE 😭";
+      noBtn.style.display = "none";
+    }
+  } else {
+    noBtn.classList.remove('shake');
+  }
+});
+
+yesBtn.addEventListener('click', () => {
+  winSound.play();
+  success.style.display = 'flex';
+  spawnConfetti();
+});
+
+function spawnConfetti(){
+  for(let i=0;i<200;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random()*100+'vw';
+    c.style.animationDuration = 2+Math.random()*3+'s';
+    c.style.background =
+      ['#ff5fa2','#ffd700','#ffffff','#d6b3ff'][Math.floor(Math.random()*4)];
+    document.body.appendChild(c);
+  }
+}
+</script>
+
 </body>
 </html>
